@@ -1,0 +1,185 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: black;
+    font-family: Arial, sans-serif;
+    position: relative;
+    overflow: hidden;
+}
+
+.stage {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.cortina {
+    position: absolute;
+    top: 0;
+    width: 30%;
+    height: 100vh;
+    background-color: darkred;
+    z-index: 3;
+    clip-path: polygon(0% 0%, 90% 0%, 100% 100%, 10% 100%);
+    transition: transform 3s ease-in-out;
+}
+
+.izquierda {
+    left: 0;
+    transform: translateX(0);
+}
+
+.derecha {
+    right: 0;
+    transform: translateX(0) scaleX(-1);
+}
+
+body.open .izquierda {
+    transform: translateX(-100%);
+}
+
+body.open .derecha {
+    transform: translateX(100%) scaleX(-1);
+}
+
+.spotlight {
+    position: absolute;
+    top: -20%;
+    left: 50%;
+    width: 300px;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.2);
+    clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+    transform: translateX(-50%);
+    animation: moveLight 2s infinite alternate ease-in-out;
+}
+
+.luz {
+    position: absolute;
+    bottom: 12%;
+    left: 50%;
+    width: 300px;
+    height: 100px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translateX(-50%);
+    filter: blur(8px);
+    animation: fadeLight 3s infinite alternate ease-in-out;
+}
+
+@keyframes moveLight {
+    0% { transform: translateX(-55%) rotate(-2deg); }
+    100% { transform: translateX(-45%) rotate(2deg); }
+}
+
+@keyframes fadeLight {
+    0% { opacity: 0.4; }
+    100% { opacity: 0.7; }
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+.corazon {
+    width: clamp(100px, 15vw, 150px);
+    height: clamp(100px, 15vw, 150px);
+    background-color: #e63946;
+    position: relative;
+    transform: rotate(-45deg);
+    top: 300px;
+    animation: heartbeat 2s infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.corazon::before,
+.corazon::after {
+    content: "";
+    width: inherit;
+    height: inherit;
+    background-color: #e63946;
+    border-radius: 50%;
+    position: absolute;
+}
+
+.corazon::before {
+    top: -50%;
+    left: 0;
+}
+
+.corazon::after {
+    left: 50%;
+    top: 0;
+}
+
+.reloj {
+    width: clamp(40px, 8vw, 80px);
+    height: clamp(40px, 8vw, 80px);
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-40%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    border: 2px solid black;
+}
+
+.reloj::before {
+    content: "";
+    width: 90%;
+    height: 90%;
+    border-radius: 50%;
+    position: absolute;
+    border: 2px solid black;
+}
+
+.aguja {
+    width: 3px;
+    height: 50%;
+    background-color: black;
+    position: absolute;
+    bottom: 50%;
+    transform-origin: bottom;
+    animation: rotateClock 6s infinite linear;
+}
+
+@keyframes rotateClock {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes heartbeat {
+    0%, 100% {
+        transform: scale(1) rotate(-45deg);
+    }
+    50% {
+        transform: scale(1.1) rotate(-45deg);
+    }
+}
+
+.message {
+    font-size: clamp(24px, 4vw, 29px);
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    display: grid;
+    place-items: center;
+    margin-top: 400px;
+}
